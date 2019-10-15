@@ -136,7 +136,9 @@ export default {
         // 如果有记录为空，提示错误，点击 完成 不成功
         let flag = true
         self.tableData.forEach( item => {
-          if( !(item.name && item.author && item.publisher && item.num && item.sort) ) {
+          // console.log(item)
+          if( !(item.name && item.author && item.publisher && item.sort && item.num>=0) ) {
+            console.log(item)
             this.$message({
               showClose: true,
               message: '请检查是否输入完整',

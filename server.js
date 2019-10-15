@@ -35,7 +35,6 @@ app.get('/', (req, res) => {
 // 书本列表
 app.get('/api/getBooks', (req, res) => {
   const sqlStr = 'SELECT * FROM book'
-  console.log('书本列表');
   conn.query(sqlStr, (error, results) => {
       if (error) return res.json({ code: -1, message: error})
       res.json({ code: 10000, data: results})
@@ -64,15 +63,14 @@ app.post('/api/updateBook',(req,res) => {
 
 // 添加书本
 app.post('/api/addBook',(req,res) => {
-  console.log(req.body)
   let str1 = '', str2 = ''
   for(var key in req.body) {
-      console.log(key)
       str1 += key + ','
-      str2 += req.body[key] + ','
+      str2 += req.body[key] + '","'
   }
+  console.log(str2)
   str1 = str1.substr(0, str1.length-1);
-  str2 = str2.substr(0, str2.length-1);
+  str2 = '"' + str2.substr(0, str2.length-2);
 
   // console.log(str1, str2)
 
@@ -128,10 +126,10 @@ app.post('/api/addUser',(req,res) => {
   for(var key in req.body) {
       console.log(key)
       str1 += key + ','
-      str2 += req.body[key] + ','
+      str2 += req.body[key] + '","'
   }
   str1 = str1.substr(0, str1.length-1);
-  str2 = str2.substr(0, str2.length-1);
+  str2 = '"' + str2.substr(0, str2.length-2);
 
   const sqlStr = 'INSERT INTO reader (' + str1 + ')' + ' VALUES (' + str2 + ')'
 
@@ -182,10 +180,10 @@ app.post('/api/addAdmin',(req,res) => {
   for(var key in req.body) {
       console.log(key)
       str1 += key + ','
-      str2 += req.body[key] + ','
+      str2 += req.body[key] + '","'
   }
   str1 = str1.substr(0, str1.length-1);
-  str2 = str2.substr(0, str2.length-1);
+  str2 = '"' + str2.substr(0, str2.length-2);
 
   const sqlStr = 'INSERT INTO administrators (' + str1 + ')' + ' VALUES (' + str2 + ')'
 
